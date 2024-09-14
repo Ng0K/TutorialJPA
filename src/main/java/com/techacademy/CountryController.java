@@ -44,8 +44,10 @@ public class CountryController {
         return "redirect:/country/list";
     }
 
-    @GetMapping("/delete")
-    public String deleteCountryForm(Model model) {
+    @GetMapping(value={"/delete/{code}/"})
+    public String deleteCountryForm(@PathVariable(name="code") String code,Model model) {
+        Country country=code !=null ? service.getCountry(code) : new Country();
+        model.addAttribute("country",country);
         return "country/delete";
     }
 
